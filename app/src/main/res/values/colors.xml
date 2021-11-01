@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="bgRecycle">#ED1E2427</color>
+    <color name="bgRecycleContact">#ED30373A</color>
 </resources>

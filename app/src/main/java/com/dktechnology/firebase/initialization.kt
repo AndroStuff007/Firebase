@@ -16,7 +16,7 @@ class initialization : AppCompatActivity() {
 
         if(status == "exist"){
 
-            val intent = Intent(this,recycleViewActivity ::class.java)
+            val intent = Intent(this,AllUser ::class.java)
             startActivity(intent)
 
         }else{

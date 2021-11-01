@@ -7,69 +7,84 @@ import android.provider.ContactsContract
 
 import android.content.ContentResolver
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.Cursor
+import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import java.util.jar.Manifest
 
 
 class AllUser : AppCompatActivity() {
+
+    lateinit var rv : RecyclerView
+    lateinit var grpchat : Button
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_user)
-        getContactList()
+
+        rv = findViewById(R.id.ContactrecycleView)
+        grpchat = findViewById(R.id.grpchat)
+        rv.layoutManager = LinearLayoutManager(this)
+
+        grpchat.setOnClickListener {
+            val intent = Intent(this,recycleViewActivity ::class.java)
+            startActivity(intent)
+        }
+
+
+        if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(this, Array(1){android.Manifest.permission.READ_CONTACTS},111)
+        }else{
+            readContact()
+        }
+
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(requestCode == 111 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            readContact()
+        }
     }
 
     @SuppressLint("Range")
-    private fun getContactList() {
-        val cr = contentResolver
-        val cur: Cursor? = cr.query(
-            ContactsContract.Contacts.CONTENT_URI,
-            null, null, null, null
-        )
+    private fun readContact() {
 
 
-        if ((if (cur != null) cur.getCount() else 0) > 0) {
-            while (cur != null && cur.moveToNext()) {
-                val id: String = cur.getString(
-                    cur.getColumnIndex(ContactsContract.Contacts._ID)
-                )
-                val name: String = cur.getString(
-                    cur.getColumnIndex(
-                        ContactsContract.Contacts.DISPLAY_NAME
-                    )
-                )
-                if (cur.getInt(
-                        cur.getColumnIndex(
-                            ContactsContract.Contacts.HAS_PHONE_NUMBER
-                        )
-                    ) > 0
-                ) {
-                    val pCur: Cursor? = cr.query(
-                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                        null,
-                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
-                        arrayOf(id),
-                        null
-                    )
-                    while (pCur?.moveToNext() == true) {
-                        val phoneNo: String = pCur.getString(
-                            pCur.getColumnIndex(
-                                ContactsContract.CommonDataKinds.Phone.NUMBER
-                            )
-                        )
 
-                        Toast.makeText(applicationContext, name, Toast.LENGTH_LONG).show()
-
-                        Log.i(TAG, "Name: $name")
-                        Log.i(TAG, "Phone Number: $phoneNo")
-                    }
-                    pCur?.close()
-                }
+        val contactList : MutableList<ContactData> = ArrayList()
+        val contacts = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,null,null,null)
+        while (contacts?.moveToNext() == true) {
+            val n = contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+            val no = contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+            val obj = ContactData()
+            obj.name = n
+            obj.number = no
+            val photo_uri = contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI))
+            if(photo_uri != null){
+                obj.image = MediaStore.Images.Media.getBitmap(contentResolver,Uri.parse(photo_uri))
             }
+            contactList.add(obj)
         }
-        if (cur != null) {
-            cur.close()
-        }
-    }
 
+        rv.adapter = ContactAdapter(contactList,applicationContext)
+        contacts?.close()
+
+
+    }
 }
+

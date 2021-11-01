@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         //check weather user is new or old
         save.setOnClickListener {
 
-            val intent = Intent(this,recycleViewActivity ::class.java)
+            val intent = Intent(this,AllUser ::class.java)
 
             //If problem in username
             if(username.text.isEmpty()){
