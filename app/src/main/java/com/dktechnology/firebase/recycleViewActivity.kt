@@ -37,6 +37,7 @@ class recycleViewActivity : AppCompatActivity() {
         send = findViewById(R.id.send)
         userArrayList = arrayListOf<Data>()
 
+
         //sending message
         send.setOnClickListener {
             sendData()
@@ -49,6 +50,7 @@ class recycleViewActivity : AppCompatActivity() {
 
         //method which retrieve data from database
     private fun getUserData() {
+
 
         dref = FirebaseDatabase.getInstance().getReference("Users")
 
@@ -105,6 +107,7 @@ class recycleViewActivity : AppCompatActivity() {
         //referring database from server side
         val mydb  : FirebaseDatabase = FirebaseDatabase.getInstance()
         val myref : DatabaseReference = mydb.getReference("Users")
+
 
 
         //setting data to model class #DATA
