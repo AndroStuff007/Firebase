@@ -24,7 +24,9 @@ class MainActivity : AppCompatActivity() {
       lateinit var getOTP: Button
       lateinit var enteredOTP : EditText
       lateinit var submitOTP: Button
-      var AutoSignedIn by Delegates.notNull<Boolean>()
+    lateinit var userArrayList: ArrayList<UserData>
+
+
 
     lateinit var auth: FirebaseAuth
     lateinit var storedVerificationId:String
@@ -35,12 +37,14 @@ class MainActivity : AppCompatActivity() {
 
 
         //offline backup
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         auth=FirebaseAuth.getInstance()
+        userArrayList = arrayListOf<UserData>()
+
 
         val currentUser = auth.currentUser
         if(currentUser != null) {
@@ -60,13 +64,14 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+
+
         // Callback function for Phone Auth
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                startActivity(Intent(applicationContext, AllUser::class.java))
-                AutoSignedIn = true
-                showToast()
+                CheckUserOnDatabase()
+                OpenMainScreen()
                 finish()
             }
 
@@ -100,9 +105,54 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showToast(){
-        Toast.makeText(this,"SUCCESSFUL",Toast.LENGTH_SHORT).show()
-        startActivity(Intent(applicationContext, AllUser::class.java))
+    private fun CheckUserOnDatabase() {
+        val mydb  : FirebaseDatabase = FirebaseDatabase.getInstance()
+        val myref : DatabaseReference = mydb.getReference("RegisteredContacts")
+
+        //Listener
+        myref.addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(p0: DataSnapshot) {
+
+                val contacts = ArrayList<String>()
+
+
+                //proceed if database contain data
+                if(p0.exists()){
+
+                    for(msg in p0.children){
+                        val contacts = msg.getValue(UserData::class.java)
+                        userArrayList.add(contacts!!)
+                        }
+
+                    }
+                val data = UserData("+91"+mobileNumber.text.toString())
+                ShowToast(data.mobileNumber)
+                    if(userArrayList.contains(data)){
+
+                        ShowToast("old user")
+                    }else{ RegisterNumber()}
+                }
+
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    private fun ShowToast(msg :String){
+
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
+
+    }
+
+    private fun OpenMainScreen(){
+
+        val intent = Intent(this, AllUser::class.java)
+// To pass any data to next activity
+        intent.putExtra("mobileNumber", mobileNumber.text.toString())
+// start your next activity
+        startActivity(intent)
         finish()
 
     }
@@ -111,7 +161,12 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    startActivity(Intent(applicationContext, AllUser::class.java))
+                    CheckUserOnDatabase()
+                    val intent = Intent(this, AllUser::class.java)
+// To pass any data to next activity
+                    intent.putExtra("mobileNumber", mobileNumber.text.toString())
+// start your next activity
+                    startActivity(intent)
                     finish()
 // ...
                 } else {
@@ -125,7 +180,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
 
     private fun login() {
         val mn = mobileNumber.text
@@ -144,6 +198,20 @@ class MainActivity : AppCompatActivity() {
         }else{
             Toast.makeText(this,"Enter mobile number",Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun RegisterNumber(){
+
+        //if(newUser){
+        val mn = "+91"+ mobileNumber.text.toString().trim()
+        val mydb  : FirebaseDatabase = FirebaseDatabase.getInstance()
+        val myref : DatabaseReference = mydb.getReference("RegisteredContacts")
+
+        val key : String = myref.push().key.toString()
+        val userData = UserData(mn)
+        myref.child(key).setValue(userData)
+        //}
+
     }
 
     private fun sendVerificationcode(number: String) {

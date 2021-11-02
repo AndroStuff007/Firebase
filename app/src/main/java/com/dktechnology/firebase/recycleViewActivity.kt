@@ -24,6 +24,7 @@ class recycleViewActivity : AppCompatActivity() {
     private lateinit var userArrayList: ArrayList<Data>
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycle_view)
@@ -36,6 +37,9 @@ class recycleViewActivity : AppCompatActivity() {
         uMessage = findViewById(R.id.Umessage)
         send = findViewById(R.id.send)
         userArrayList = arrayListOf<Data>()
+
+
+
 
 
         //sending message

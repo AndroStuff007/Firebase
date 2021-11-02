@@ -12,7 +12,7 @@ import android.net.Uri
 import android.widget.ImageView
 
 //Model Class
-class ContactAdapter(val items : List<ContactData>,ctx: Context) : RecyclerView.Adapter<ContactAdapter.ViewHolder>(){
+class ContactAdapter(val items: MutableList<UserData>, ctx: Context) : RecyclerView.Adapter<ContactAdapter.ViewHolder>(){
 
     private var list = items
     private var context = ctx
@@ -24,15 +24,15 @@ class ContactAdapter(val items : List<ContactData>,ctx: Context) : RecyclerView.
     override fun onBindViewHolder(h: ContactAdapter.ViewHolder, position: Int) {
 
         val currentItem = items[position]
-        h.userName.text = currentItem.name
-        h.userNumber.text = currentItem.number
+        ///h.userName.text = currentItem.mobileNumber
+        h.userNumber.text = currentItem.mobileNumber
 
 
 
-             if(list[position].image != null)
-                 h.profile.setImageBitmap(list[position].image)
-             else
-                 h.profile.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_launcher_round))
+             //if(list[position].image != null)
+               //  h.profile.setImageBitmap(list[position].image)
+             //else
+                // h.profile.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_launcher_round))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactAdapter.ViewHolder {
@@ -41,9 +41,9 @@ class ContactAdapter(val items : List<ContactData>,ctx: Context) : RecyclerView.
 
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v){
-        val userName : TextView = v.findViewById(R.id.tv_name)
-        val userNumber : TextView = v.findViewById(R.id.tv_number)
-        val profile : ImageView = v.findViewById(R.id.iv_profile)
+        //val userName : TextView = v.findViewById(R.id.tv_name)
+       val userNumber : TextView = v.findViewById(R.id.tv_number)
+        //val profile : ImageView = v.findViewById(R.id.iv_profile)
 
 
     }
