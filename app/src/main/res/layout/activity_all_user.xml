@@ -22,16 +22,25 @@
         android:layout_centerInParent="true"
         android:layout_height="wrap_content">
 
+        <Button
+            android:id="@+id/grpchat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg"
+            android:text="@string/group_chat" />
 
         <Button
+            android:id="@+id/logout"
             android:layout_width="wrap_content"
-            android:text="GROUP CHAT"
-            android:id="@+id/grpchat"
+            android:layout_height="wrap_content"
             android:background="@drawable/bg"
-            android:layout_height="wrap_content"/>
+            android:layout_toEndOf="@+id/grpchat"
+            android:text="@string/logout" />
 
 
     </RelativeLayout>
+
+
 
 
 </RelativeLayout>

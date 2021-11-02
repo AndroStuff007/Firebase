@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Firebase</string>
+    <string name="group_chat">GROUP CHAT</string>
+    <string name="logout">LOGOUT</string>
 </resources>

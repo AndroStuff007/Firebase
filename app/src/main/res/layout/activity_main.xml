@@ -4,17 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:paddingTop="260dp"
     android:background="@color/common_google_signin_btn_text_light_pressed"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+       android:layout_marginTop="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:textSize="28dp"
+        android:text="WELCOME TO ChatApp"/>
+
     <EditText
-        android:id="@+id/uname"
+     android:layout_marginTop="160dp"
+        android:id="@+id/mnumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="USERNAME  "
-
+        android:hint="Mobille Number  "
         android:background="@drawable/edittext_bg"
         android:inputType="textPersonName"
         android:paddingTop="10dp"
@@ -24,12 +32,42 @@
         android:text="" />
 
     <Button
-        android:layout_width="100dp"
+        android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:text="SAVE"
+        android:text="GET OTP"
         android:background="@drawable/button_bg"
         android:textSize="20dp"
-        android:id="@+id/save"/>
+        android:id="@+id/getOTP"/>
+
+
+
+
+
+
+    <EditText
+        android:visibility="gone"
+        android:layout_marginTop="160dp"
+        android:id="@+id/enteredOTP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter OTP"
+        android:background="@drawable/edittext_bg"
+        android:inputType="textPersonName"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="22dp"
+        android:layout_marginBottom="20dp"
+        android:text="" />
+
+    <Button
+        android:visibility="gone"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:text="SUBMIT"
+        android:background="@drawable/button_bg"
+        android:textSize="20dp"
+        android:id="@+id/submitOTP"/>
 
 </LinearLayout>

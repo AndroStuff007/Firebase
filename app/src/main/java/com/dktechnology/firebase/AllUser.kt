@@ -22,6 +22,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import java.util.jar.Manifest
 
 
@@ -29,7 +30,8 @@ class AllUser : AppCompatActivity() {
 
     lateinit var rv : RecyclerView
     lateinit var grpchat : Button
-
+    lateinit var logout : Button
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +39,28 @@ class AllUser : AppCompatActivity() {
 
         rv = findViewById(R.id.ContactrecycleView)
         grpchat = findViewById(R.id.grpchat)
+        logout = findViewById(R.id.logout)
         rv.layoutManager = LinearLayoutManager(this)
 
         grpchat.setOnClickListener {
             val intent = Intent(this,recycleViewActivity ::class.java)
             startActivity(intent)
         }
+
+        auth= FirebaseAuth.getInstance()
+        val currentUser=auth.currentUser
+
+        if(currentUser==null){
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
+        }
+
+        logout.setOnClickListener{
+            auth.signOut()
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
+        }
+
 
 
         if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED){

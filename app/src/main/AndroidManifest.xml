@@ -18,13 +18,13 @@
             android:name=".initialization"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".AllUser"
             android:exported="true" />
         <activity
             android:name=".recycleViewActivity"
             android:exported="true" />
         <activity
-            android:name=".AllUser"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
