@@ -8,7 +8,6 @@
     app:reverseLayout="true"
     app:stackFromEnd="true"
     android:id="@+id/lt"
-    android:orientation="vertical"
     tools:context=".recycleViewActivity">
 
     <androidx.recyclerview.widget.RecyclerView

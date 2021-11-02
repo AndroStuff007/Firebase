@@ -51,8 +51,8 @@ class AllUser : AppCompatActivity() {
         val currentUser=auth.currentUser
 
         if(currentUser==null){
-            startActivity(Intent(this,MainActivity::class.java))
-            finish()
+           /* startActivity(Intent(this,MainActivity::class.java))
+            finish()*/
         }
 
         logout.setOnClickListener{

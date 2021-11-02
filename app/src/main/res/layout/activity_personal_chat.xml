@@ -5,14 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
-    tools:context=".personal_chat">
+    android:background="@color/bgRecycle"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:layout_centerInParent="true"
-        android:textStyle="bold"
-        android:text="PRESONAL CHAT"/>
+    tools:context=".personal_chat">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/Umessage"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/edittext_bg"
+            android:hint="Type any message..."
+            android:paddingLeft="10dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="17dp" />
+
+        <Button
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/Umessage"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_bg"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="SEND" />
+
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>

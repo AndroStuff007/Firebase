@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         auth=FirebaseAuth.getInstance()
 
-        var currentUser = auth.currentUser
+        val currentUser = auth.currentUser
         if(currentUser != null) {
             startActivity(Intent(applicationContext, AllUser::class.java))
             finish()
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 
         submitOTP.setOnClickListener {
 
-                var otp=enteredOTP.text.toString().trim()
+                val otp=enteredOTP.text.toString().trim()
                 if(!otp.isEmpty()){
                     val credential : PhoneAuthCredential = PhoneAuthProvider.getCredential(
                         storedVerificationId.toString(), otp)
@@ -102,6 +102,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun showToast(){
         Toast.makeText(this,"SUCCESSFUL",Toast.LENGTH_SHORT).show()
+        startActivity(Intent(applicationContext, AllUser::class.java))
+        finish()
 
     }
 
