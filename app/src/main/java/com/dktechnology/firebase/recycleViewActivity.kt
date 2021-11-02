@@ -59,7 +59,7 @@ class recycleViewActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
 
                 //clearing list for preventing duplication
-                userArrayList.clear()
+                //userArrayList.clear()
 
                 //proceed if database contain data
                 if(p0.exists()){
