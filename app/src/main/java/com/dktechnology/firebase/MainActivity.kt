@@ -1,9 +1,6 @@
 package com.dktechnology.firebase
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +10,6 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.google.firebase.database.*
 import java.util.concurrent.TimeUnit
-import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +20,7 @@ class MainActivity : AppCompatActivity() {
       lateinit var getOTP: Button
       lateinit var enteredOTP : EditText
       lateinit var submitOTP: Button
-    lateinit var userArrayList: ArrayList<UserData>
+    lateinit var userArrayList: ArrayList<ContactData>
 
 
 
@@ -43,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         auth=FirebaseAuth.getInstance()
-        userArrayList = arrayListOf<UserData>()
+        userArrayList = arrayListOf<ContactData>()
 
 
         val currentUser = auth.currentUser
@@ -121,13 +117,13 @@ class MainActivity : AppCompatActivity() {
                 if(p0.exists()){
 
                     for(msg in p0.children){
-                        val contacts = msg.getValue(UserData::class.java)
+                        val contacts = msg.getValue(ContactData::class.java)
                         userArrayList.add(contacts!!)
                         }
 
                     }
-                val data = UserData("+91"+mobileNumber.text.toString())
-                ShowToast(data.mobileNumber)
+                val data = ContactData("+91"+mobileNumber.text.toString())
+                ShowToast(data.number)
                     if(userArrayList.contains(data)){
 
                         ShowToast("old user")
@@ -208,7 +204,7 @@ class MainActivity : AppCompatActivity() {
         val myref : DatabaseReference = mydb.getReference("RegisteredContacts")
 
         val key : String = myref.push().key.toString()
-        val userData = UserData(mn)
+        val userData = ContactData(mn)
         myref.child(key).setValue(userData)
         //}
 

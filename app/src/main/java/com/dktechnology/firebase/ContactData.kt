@@ -2,7 +2,7 @@ package com.dktechnology.firebase
 
 import android.graphics.Bitmap
 
-class ContactData{
+class ContactData(mn : String = ""){
 
     var name = ""
     var number = ""

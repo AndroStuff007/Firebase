@@ -29,10 +29,10 @@ class ContactAdapter(val items: MutableList<UserData>, ctx: Context) : RecyclerV
 
 
 
-             //if(list[position].image != null)
-               //  h.profile.setImageBitmap(list[position].image)
-             //else
-                // h.profile.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_launcher_round))
+        //if(list[position].image != null)
+        //  h.profile.setImageBitmap(list[position].image)
+        //else
+        // h.profile.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_launcher_round))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactAdapter.ViewHolder {
@@ -42,7 +42,7 @@ class ContactAdapter(val items: MutableList<UserData>, ctx: Context) : RecyclerV
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v){
         //val userName : TextView = v.findViewById(R.id.tv_name)
-       val userNumber : TextView = v.findViewById(R.id.tv_number)
+        val userNumber : TextView = v.findViewById(R.id.tv_number)
         //val profile : ImageView = v.findViewById(R.id.iv_profile)
 
 
