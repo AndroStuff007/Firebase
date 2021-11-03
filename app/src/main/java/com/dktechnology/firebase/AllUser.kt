@@ -80,9 +80,6 @@ class AllUser : AppCompatActivity() {
 
                 RealUsers.clear()
 
-                val contacts = ArrayList<String>()
-
-
                 //proceed if database contain data
                 if (p0.exists()) {
 
@@ -101,8 +98,6 @@ class AllUser : AppCompatActivity() {
                 }
 
                rv.adapter = ContactAdapter(RealUsers,applicationContext)
-
-
 
             }
             override fun onCancelled(p0: DatabaseError) {
@@ -123,16 +118,16 @@ class AllUser : AppCompatActivity() {
 
         val contacts = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,null,null,null)
         while (contacts?.moveToNext() == true) {
-            //val n = contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+            val n = contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
             var no = contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
             val obj = ContactData()
-            //obj.name = n
+            obj.name = n
             no = no.replace("\\s".toRegex(),"")
             obj.number = no
-          /*  val photo_uri = contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI))
+            val photo_uri = contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI))
             if(photo_uri != null){
                 obj.image = MediaStore.Images.Media.getBitmap(contentResolver, Uri.parse(photo_uri))
-            }*/
+            }
 
             contactList.add(obj)
 
@@ -143,6 +138,12 @@ class AllUser : AppCompatActivity() {
 
 
     }
+
+
+
+
+
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
