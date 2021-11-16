@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:background="@color/white"
-    app:reverseLayout="true"
-    app:stackFromEnd="true"
     android:id="@+id/lt"
     tools:context=".recycleViewActivity">
 
@@ -14,7 +13,6 @@
         android:id="@+id/recycleView"
         android:layout_marginBottom="?attr/actionBarSize"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content" />
 
     <RelativeLayout

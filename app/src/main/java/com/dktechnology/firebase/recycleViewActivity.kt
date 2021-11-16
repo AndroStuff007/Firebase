@@ -34,9 +34,14 @@ class recycleViewActivity : AppCompatActivity() {
         userRecycleview = findViewById(R.id.recycleView)
         userRecycleview.layoutManager = LinearLayoutManager(this)
         userRecycleview.setHasFixedSize(true)
+
+        val linearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.stackFromEnd = true
+        userRecycleview.setLayoutManager(linearLayoutManager)
         uMessage = findViewById(R.id.Umessage)
         send = findViewById(R.id.send)
         userArrayList = arrayListOf<Data>()
+
 
 
 
@@ -75,8 +80,9 @@ class recycleViewActivity : AppCompatActivity() {
 
                     //adapting data
                     userRecycleview.adapter = DataAdapter(userArrayList)
-                    userRecycleview.smoothScrollToPosition(userArrayList.count() - 1)
                     userRecycleview.layoutManager!!.isItemPrefetchEnabled = true
+
+
 
                     //TODO("set focus of recycle view on last index")
                 }
