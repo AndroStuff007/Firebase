@@ -6,6 +6,7 @@
     app:cardElevation="8dp"
     app:cardCornerRadius="8dp"
     android:layout_margin="16dp"
+    android:id="@+id/card"
     app:cardBackgroundColor="#FF1E2427"
     android:layout_height="wrap_content">
 

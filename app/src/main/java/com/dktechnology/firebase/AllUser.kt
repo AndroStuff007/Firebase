@@ -11,13 +11,14 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.widget.*
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 
-class AllUser : AppCompatActivity() {
+class AllUser : AppCompatActivity()/*OnUserClick */{
 
     lateinit var rv : RecyclerView
     lateinit var grpchat : Button
@@ -97,7 +98,7 @@ class AllUser : AppCompatActivity() {
 
                 }
 
-               rv.adapter = ContactAdapter(RealUsers,applicationContext)
+               rv.adapter = ContactAdapter(RealUsers,applicationContext,/*this@AllUser*/)
 
             }
             override fun onCancelled(p0: DatabaseError) {
@@ -109,9 +110,6 @@ class AllUser : AppCompatActivity() {
     private fun tt(msg : String){
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
     }
-
-
-
 
     @SuppressLint("Range")
     private fun readContact() {
@@ -139,12 +137,6 @@ class AllUser : AppCompatActivity() {
 
     }
 
-
-
-
-
-
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == 111 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
@@ -152,5 +144,13 @@ class AllUser : AppCompatActivity() {
             CheckUserOnDatabase()
         }
     }
+
+    /*override fun OnUserClickName(uname: String) {
+
+        startActivity(Intent(applicationContext, personal_chat::class.java).putExtra("number",uname))
+
+        finish()
+
+    }*/
 }
 
