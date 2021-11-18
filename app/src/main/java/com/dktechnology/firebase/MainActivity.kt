@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
 
     lateinit var auth: FirebaseAuth
-    lateinit var storedVerificationId:String
+    var storedVerificationId:String = ""
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
         getOTP = findViewById(R.id.getOTP)
         enteredOTP = findViewById(R.id.enteredOTP)
         submitOTP = findViewById(R.id.submitOTP)
-
         getOTP.setOnClickListener{
             login()
         }
